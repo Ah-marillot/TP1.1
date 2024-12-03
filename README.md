@@ -24,14 +24,11 @@ Utilisation
 Menu principal: À l'exécution, l'application affiche un menu principal proposant les différentes fonctionnalités.
 Navigation: Utilisez les touches ou les chiffres correspondants pour naviguer dans les menus et sélectionner les options.
 Saisie: Suivez les instructions à l'écran pour saisir les informations nécessaires (identifiants, paramètres de génération, etc.).
-Lorsque le programme vous demande de saisir
 Sauvegarde: Le fichier de sauvegarde est créé automatiquement lors de la première utilisation et est situé dans le même répertoire que l'exécutable.
 Informations complémentaires
-Mot de passe maître: Un mot de passe maître est requis pour accéder à la liste des mots de passe sauvegardés. Ce mot de passe est hardcodé dans le programme et indiqué dans ce fichier README.
-Cryptage: Le cryptage utilisé est [indiquer le type de cryptage utilisé].
-Limitations: [Mentionner les éventuelles limitations du programme, si nécessaire].
+Mot de passe maître: Un mot de passe maître est requis pour accéder à la liste des mots de passe sauvegardés. Ce mot de passe est hardcodé dans le programme et indiqué dans ce fichier. Donc lorsque le programme vous demande de saisir le mot de passe maitre, il faudra saisir le mot de passe suivant : **password3A**.
+
 Auteurs
-[Ton nom]
+MARIE-BAILLOT, VENET, ATA
 [Nom de ton binôme/trinôme, si applicable]
-Remerciements
-[Remercier les personnes ou ressources qui ont contribué au projet].
+
