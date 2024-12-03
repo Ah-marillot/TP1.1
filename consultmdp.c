@@ -1,59 +1,7 @@
 #include "consultmdp.h"
 
-/*
-// Fonction pour chiffrer le mot de passe en assurant des caractères imprimables
-void encrypt(char *password, const char *key) {
-    size_t key_len = strlen(key);
-    for (size_t i = 0; i < strlen(password); i++) {
-        password[i] = ((password[i] ^ key[i % key_len]) % 94) + 33; // Assure des caractères imprimables
-    }
-}
 
-// Fonction pour déchiffrer le mot de passe
-void decrypt(char *password, const char *key) {
-    size_t key_len = strlen(key);
-    for (size_t i = 0; i < strlen(password); i++) {
-        password[i] = ((password[i] - 33 + 94) % 94) ^ key[i % key_len]; // Reconvertit en caractères originaux
-    }
-}
-
-// Fonction : Consultation des mots de passe
-void viewPasswords() {
-    char masterPass[MAX_PASSWORD_LENGTH];
-    char line[MAX_PASSWORD_LENGTH];
-
-    printf("\n=== Consultation des Mots de Passe ===\n");
-    printf("Entrez le mot de passe maitre : ");
-    scanf("%s", masterPass);
-
-    if (strcmp(masterPass, MASTER_PASSWORD) != 0) {
-        printf("Mot de passe incorrect.\n");
-        return;
-    }
-
-    FILE *file = fopen(FILE_NAME, "r");
-    if (!file) {
-        printf("Aucun mot de passe sauvegarde.\n");
-        return;
-    }
-
-    printf("\nListe des mots de passe:\n");
-    printf("\nIdentifiant | Type de Login | Service | Mot de Passe\n");
-    printf("----------------------------------------------------\n");
-
-    while (fgets(line, sizeof(line), file)) {
-        char identifier[MAX_PASSWORD_LENGTH], service[MAX_PASSWORD_LENGTH], password[MAX_PASSWORD_LENGTH];
-        int type;
-        sscanf(line, "%[^,],%[^,],%[^,],%s", identifier, &type, service, password);
-            encrypt(password, -3);
-            decrypt(password, -3); // Décrypter le mot de passe
-            printf("%s | %s | %d | %s\n", identifier, type, service, password);
-    }
-
-    fclose(file);
-}*/
-
-// Fonction : Suppression d'un mot de passe retourne le mot de passe supprimé décrypté
+// Fonction : Suppression d'un mot de passe retourne le mot de passe supprime decrypte
 char* deletePassword(int targetLine, char* masterPass) {
     char line[MAX_LINE];
     char lines[100][MAX_PASSWORD_LENGTH];
@@ -81,7 +29,7 @@ char* deletePassword(int targetLine, char* masterPass) {
         return;
     }
 
-    // Réécriture des lignes dans le fichier sans celle à supprimer
+    // Reecriture des lignes dans le fichier sans celle supprimer
     file = fopen(FILE_NAME, "w");
     if (!file) {
         printf("Erreur lors de l'ouverture du fichier.\n");
@@ -92,7 +40,7 @@ char* deletePassword(int targetLine, char* masterPass) {
         if (i != targetLine - 1) {
             fprintf(file, "%s", lines[i]);
         }else{
-            sscanf(line[i],"%*s %s %*s %*s", password);
+            sscanf(lines[i],"%*s %s %*s %*s", password);
             decrypt(password, masterPass);
         }
     }
@@ -100,31 +48,31 @@ char* deletePassword(int targetLine, char* masterPass) {
     return password;
 }
 
-// Fonction utilitaire : Vider le tampon d'entrée
+// Fonction utilitaire : Vider le tampon d'entree
 void flushInputBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-// Fonction pour chiffrer le mot de passe en assurant des caractères imprimables
+// Fonction pour chiffrer le mot de passe en assurant des caracteres imprimables
 void encrypt(char *password, const char *key) {
     size_t key_len = strlen(key);
     for (size_t i = 0; i < strlen(password); i++) {
-        password[i] = ((password[i] ^ key[i % key_len]) % 94) + 33; // Assure des caractères imprimables
+        password[i] = ((password[i] ^ key[i % key_len]) % 94) + 33; // Assure des caracteres imprimables
     }
 }
 
-// Fonction pour déchiffrer le mot de passe
+// Fonction pour dï¿½chiffrer le mot de passe
 void decrypt(char *password, const char *key) {
     size_t key_len = strlen(key);
     for (size_t i = 0; i < strlen(password); i++) {
-        password[i] = ((password[i] - 33 + 94) % 94) ^ key[i % key_len]; // Reconvertit en caractères originaux
+        password[i] = ((password[i] - 33 + 94) % 94) ^ key[i % key_len]; // Reconvertit en caracteres originaux
     }
 }
 
 
 
-// Fonction pour vérifier si le service existe déjà
+// Fonction pour verifier si le service existe deja
 int service_exists(const char *service_name) {
     FILE *file = fopen(FILE_NAME, "r");
     if (file == NULL) {
@@ -137,7 +85,7 @@ int service_exists(const char *service_name) {
         sscanf(line, "%*s %*s %*s %s", stored_service); // Ignorer les trois premiers champs et lire le service_name
         if (strcmp(stored_service, service_name) == 0) {
             fclose(file);
-            return nb_line; // Service trouvé
+            return nb_line; // Service trouvï¿½
         }
         nb_line++;
     }
@@ -146,7 +94,7 @@ int service_exists(const char *service_name) {
     return 0;
 }
 
-// Fonction pour afficher les mots de passe déchiffrés
+// Fonction pour afficher les mots de passe dï¿½chiffrï¿½s
 char* viewPasswords(const char* key) {
     FILE *file = fopen(FILE_NAME, "r");
     if (file == NULL) {
@@ -158,13 +106,13 @@ char* viewPasswords(const char* key) {
     size_t buffer_size = 1024;
     char *buffer = malloc(buffer_size);
     if (buffer == NULL) {
-        perror("Erreur d'allocation mémoire");
+        perror("Erreur d'allocation mï¿½moire");
         fclose(file);
         return NULL;
     }
     buffer[0] = '\0'; // Initialiser le buffer
 
-    // Ajouter l'en-tête
+    // Ajouter l'en-tï¿½te
     strcat(buffer, "login\tpassword\tlogin_type\tservice\n");
 
     char line[256];
@@ -172,21 +120,21 @@ char* viewPasswords(const char* key) {
         char login[100], encrypted_password[100], login_type[100], service[100];
         sscanf(line, "%s\t%s\t%s\t%s", login, encrypted_password, login_type, service);
 
-        // Déchiffrer le mot de passe
+        // Dï¿½chiffrer le mot de passe
         decrypt(encrypted_password, key);
 
-        // Afficher les informations déchiffrées
+        // Afficher les informations dï¿½chiffrï¿½es
         char line[MAX_LINE];
         sprintf(line, "%s\t%s\t%s\t%s\n", login, encrypted_password, login_type, service);
         strcat(buffer, line);
 
-        // Ajouter les informations déchiffrées au buffer
+        // Ajouter les informations dï¿½chiffrï¿½es au buffer
         /*size_t needed_size = strlen(buffer) + strlen(login) + strlen(encrypted_password) + strlen(login_type) + strlen(service) + 5;
         if (needed_size > buffer_size) {
             buffer_size *= 2;
             buffer = realloc(buffer, buffer_size);
             if (buffer == NULL) {
-                perror("Erreur d'allocation mémoire");
+                perror("Erreur d'allocation mï¿½moire");
                 fclose(file);
                 return NULL;
             }
@@ -215,12 +163,12 @@ char* viewPasswords(const char* key) {
 
     //Creer une ligne temporaire pour stocker les informations
     char line[256];
-    //Lire chaque ligne du fichier jusqu'à ce que le login et le service matchent
+    //Lire chaque ligne du fichier jusqu'ï¿½ ce que le login et le service matchent
     while (fgets(line, sizeof(line), file)) {
         char stored_login[100], stored_encrypted_password[100], stored_login_type[100], stored_service[100];
         sscanf(line, "%s\t%s\t%s\t%s", stored_login, stored_encrypted_password, stored_login_type, stored_service);
 
-        //Déchiffrer le mot de passe
+        //Dï¿½chiffrer le mot de passe
         decrypt(stored_encrypted_password, key);
 
         //Si le login et le service correspondent, supprimer la ligne
@@ -232,13 +180,13 @@ char* viewPasswords(const char* key) {
                 return NULL;
             }
 
-            //Réécrire toutes les lignes sauf celle à supprimer
+            //Rï¿½ï¿½crire toutes les lignes sauf celle ï¿½ supprimer
             rewind(file);
             while (fgets(line, sizeof(line), file)) {
                 char stored_login[100], stored_encrypted_password[100], stored_login_type[100], stored_service[100];
                 sscanf(line, "%s\t%s\t%s\t%s", stored_login, stored_encrypted_password, stored_login_type, stored_service);
 
-                //Déchiffrer le mot de passe
+                //Dï¿½chiffrer le mot de passe
                 decrypt(stored_encrypted_password, key);
 
                 if (strcmp(stored_login, login) != 0 || strcmp(stored_service, service_name) != 0) {
@@ -254,5 +202,5 @@ char* viewPasswords(const char* key) {
         }
     }
     fclose(file);
-    return "Mot de passe non trouvé";
+    return "Mot de passe non trouvï¿½";
 }*/

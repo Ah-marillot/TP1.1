@@ -3,16 +3,13 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
-#include "generator.h"
-#include "save.h"
-#include "consultation.h"
+#include "generateur.h"
+#include "consultmdp.h"
 
 // Définir une longueur maximale pour le mot de passe
 #define MAX_PASSWORD_LENGTH 128
 #define MASTER_PASSWORD "password123"
 #define FILE_NAME "passwords.txt"
-
-#define MYFILE "data.txt"
 
 // Fonction pour demander le mot de passe maitre, les demande 3 fois retourne 0 si le mot de passe est correct, 1 sinon
 int askMasterPassword(char *masterPass) {
@@ -31,6 +28,19 @@ int askMasterPassword(char *masterPass) {
     return 1;
 }
 
+// Fonction pour rentrer une valeur avec une avec confirmation
+void enterValue(char *value, char *message) {
+    char *confirm;
+    do {
+        printf("%s", message);
+        scanf("%s", value);
+        flushInputBuffer();
+        printf("Confirmez (O/N) : ");
+        char confirm;
+        scanf("%c", &confirm);
+        flushInputBuffer();
+    } while (confirm != 'O' && confirm != 'o');
+}
 
 // Fonction utilitaire : Vider le tampon d'entrée
 void flushInputBuffer() {
@@ -67,7 +77,7 @@ int main() {
 char menu;
 char sousmenu;
 char password[MAX_PASSWORD_LENGTH + 1];
-char *masterPass;
+char masterPass[MAX_PASSWORD_LENGTH + 1];
 
    printf(" ________________________________________________________\n");
    printf("|                                                        |\n");
@@ -175,7 +185,7 @@ char *masterPass;
                     scanf("%c", &sousmenu);
                     flushInputBuffer();
                 } while (sousmenu != 'O' && sousmenu != 'o');
-                deletePassword(masterPass, service, login);
+                printf("Le mot de passe %s à été supprimé", deletePassword(masterPass, service, login));
             }
             break;
         case '5':
