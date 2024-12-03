@@ -1,6 +1,6 @@
-#motdepasse
+# motdepasse
 
-##**I-Description**
+## **I-Description**
 
 Gestionnaire de mot de passe est un générateur de mots de passe sécurisé. Il permet de créer des mots de passe forts, personnalisés, et de les stocker de manière cryptée. L'application offre une interface en ligne de commande intuitive pour une utilisation facile.
 
