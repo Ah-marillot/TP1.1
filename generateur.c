@@ -11,16 +11,16 @@ int gen_mdp(char* mdp_out)
     int i=0;
     int index = 0;
 
-     // Initialisation du générateur de nombres aléatoires
+     // Initialisation du generateur de nombres aleatoires
     srand(time(NULL));
 
     maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     min = "abcdefghijklmnopqrstuvwxyz";
     chiffre = "0123456789";
-    c_sp = "@!*#%$£:~";
+    c_sp = "@!*#%$ï¿½:~";
 
     printf("*Bienvenue dans la gestion des mots de passe*\n");
-    printf ("** combien voulez-vous de carateres :  \n");
+    printf ("** combien voulez-vous de carateres (de 8 a 128):  \n");
     scanf ("%d", &nb_caracteres);
 
     if (nb_caracteres<8 || nb_caracteres>128)
@@ -32,7 +32,7 @@ int gen_mdp(char* mdp_out)
     {
 
 
-        // Demander combien de majuscules, minuscules, chiffres et caractères spéciaux
+        // Demander combien de majuscules, minuscules, chiffres et caracteres speciaux
         printf("Combien de majuscules (maximum %d) ? ", nb_caracteres);
         scanf("%d", &nb_maj);
 
@@ -73,31 +73,31 @@ int gen_mdp(char* mdp_out)
     if (nb_restants > 0)
         {
             printf("Le mot de passe sera complete avec %d caracteres aleatoires.\n", nb_restants);
-            // que faire ???? a voir ...
-        }
-        // Allocation de mémoire pour le mot de passe
-        char mdp[nb_caracteres + 1];
-
-        // Ajout des majuscules
-        for (i = 0; i < nb_maj; i++)
-        {
-            mdp[index++] = maj[rand() % strlen(maj)]; // Selectionner un caratere dans la chaîne maj, et le stocker dans le tableau mdp (avec la position index), et on incrémente index pour avoir le ou les prochains caracteres
 
         }
+    // Allocation de memoire pour le mot de passe
+    char mdp[MAX_PASSWORD_LENGTH + 1];
 
-        // Ajout des minuscules
-        for (i = 0; i < nb_min; i++)
-        {
-            mdp[index++] = min[rand() % strlen(min)];
-        }
+    // Ajout des majuscules
+    for (i = 0; i < nb_maj; i++)
+    {
+        mdp[index++] = maj[rand() % strlen(maj)]; // Selectionner un caratere dans la chaï¿½ne maj, et le stocker dans le tableau mdp (avec la position index), et on incrï¿½mente index pour avoir le ou les prochains caracteres
 
-        // Ajout des chiffres
-        for (i = 0; i < nb_chiffres; i++)
-        {
+    }
+
+    // Ajout des minuscules
+    for (i = 0; i < nb_min; i++)
+    {
+        mdp[index++] = min[rand() % strlen(min)];
+    }
+
+    // Ajout des chiffres
+    for (i = 0; i < nb_chiffres; i++)
+   {
             mdp[index++] = chiffre[rand() % strlen(chiffre)];
         }
 
-        // Ajout des caractères spéciaux
+        // Ajout des caractï¿½res spï¿½ciaux
         for (i = 0; i < nb_c_sp; i++)
         {
             mdp[index++] = c_sp[rand() % strlen(c_sp)];
@@ -106,43 +106,44 @@ int gen_mdp(char* mdp_out)
         //Tant que la boucle n'a pas atteint la longueur totale, on complete le mdp avec les caracteres aleatoires
         for (i = 0; i < nb_restants; i++)
         {
-            int type = rand() % 4; // L'entier type va prendre une valeur aléatoire entre 0 et 3 à chaque execution de ces lignes
+        int type = rand() % 4; // L'entier type va prendre une valeur alï¿½atoire entre 0 et 3 ï¿½ chaque execution de ces lignes
 
-            if (type == 0)
-            {
-                mdp[index++] = maj[rand() % strlen(maj)];
-            }
-
-            else if (type == 1)
-            {
-                mdp[index++] = min[rand() % strlen(min)];
-            }
-
-            else if (type == 2)
-            {
-                mdp[index++] = chiffre[rand() % strlen(chiffre)];
-            }
-
-            else
-            {
-                mdp[index++] = c_sp[rand() % strlen(c_sp)];
-            }
-        }
-
-        // melanger le mot de passe
-        for (i = 0; i < nb_caracteres; i++) // on parcourt la ligne nb_caracteres
+        if (type == 0)
         {
-            int j = rand() % nb_caracteres; // selectionner une position aleatoire entre et nb_caracteres -1
-            char temp = mdp[i]; //Concatener deux tableaux pour mélanfer les caracteres
-            mdp[i] = mdp[j];
-            mdp[j] = temp;
+            mdp[index++] = maj[rand() % strlen(maj)];
         }
+
+        else if (type == 1)
+        {
+            mdp[index++] = min[rand() % strlen(min)];
+        }
+
+        else if (type == 2)
+        {
+            mdp[index++] = chiffre[rand() % strlen(chiffre)];
+        }
+
+        else
+        {
+            mdp[index++] = c_sp[rand() % strlen(c_sp)];
+        }
+    }
+
+    // melanger le mot de passe
+    for (i = 0; i < nb_caracteres; i++) // on parcourt la ligne nb_caracteres
+    {
+        int j = rand() % nb_caracteres; // selectionner une position aleatoire entre et nb_caracteres -1
+        char temp = mdp[i]; //Concatener deux tableaux pour melanger les caracteres
+        mdp[i] = mdp[j];
+        mdp[j] = temp;
+    }
     printf("nb caractere %d\n", nb_caracteres);
-    // Ajouter le caractere de fin de chaîne
+    // Ajouter le caractere de fin de chaine
     mdp[nb_caracteres] = '\0';
 
     strcpy(mdp_out, mdp);
-
+    return 0;
     }
-    }
+    
+}
 

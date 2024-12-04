@@ -7,6 +7,7 @@
 #include <time.h>
 #include <ctype.h>
 
+#define MAX_PASSWORD_LENGTH 128
 
 int gen_mdp(char* mdp_out);
 

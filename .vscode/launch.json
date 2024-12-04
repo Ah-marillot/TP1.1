@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Nathan/Documents/Scolarité/ENSIL-ENSCI/Info/TP1.1",
-      "program": "c:/Users/Nathan/Documents/Scolarité/ENSIL-ENSCI/Info/TP1.1/build/Debug/outDebug",
+      "cwd": "c:/Users/Nathan/Documents/GitHub/TP1.1",
+      "program": "c:/Users/Nathan/Documents/GitHub/TP1.1/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
